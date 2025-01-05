@@ -5,8 +5,13 @@ import hljsPlugin from "@notion-render/hljs-plugin";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const post = await fetchBySlug(params.slug);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
+  const post = await fetchBySlug(slug);
 
   if (!post) {
     return <div>Post not found</div>;
