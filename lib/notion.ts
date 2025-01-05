@@ -12,7 +12,7 @@ export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-export const fetchPages = React.cache(async () => {
+export const fetchPages = async () => {
   const database = await notion.databases.retrieve({
     database_id: process.env.NOTION_DATABASE_ID!,
   });
@@ -57,7 +57,7 @@ export const fetchPages = React.cache(async () => {
       };
     })
     .filter((post) => post.slug);
-});
+};
 
 export const fetchBySlug = React.cache((slug: string) => {
   return notion.databases
