@@ -27,28 +27,36 @@ export const fetchPages = React.cache(async () => {
     },
   });
 
-  return response.results.map((page) => {
-    const properties = (page as PageObjectResponse).properties;
-    const title =
-      properties.Name.type === "title"
-        ? properties.Name.title[0].plain_text
-        : "Untitled";
-    const date =
-      properties.Date.type === "date" && properties.Date.date
-        ? properties.Date.date.start
-        : "No date";
-    const slug =
-      properties.Slug.type === "rich_text"
-        ? properties.Slug.rich_text[0].plain_text
-        : "404";
+  return response.results
+    .map((page) => {
+      const properties = (page as PageObjectResponse).properties;
+      console.log("Page properties:", properties); // Log properties to inspect structure
 
-    return {
-      id: page.id,
-      title,
-      date,
-      slug,
-    };
-  });
+      const title =
+        properties.Name.type === "title"
+          ? properties.Name.title[0].plain_text
+          : "Untitled";
+      const date =
+        properties.Date.type === "created_time"
+          ? new Intl.DateTimeFormat("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }).format(new Date(properties.Date.created_time))
+          : "No date";
+      const slug =
+        properties.Slug.type === "rich_text"
+          ? properties.Slug.rich_text[0]?.plain_text
+          : "404";
+
+      return {
+        id: page.id,
+        title,
+        date,
+        slug,
+      };
+    })
+    .filter((post) => post.slug);
 });
 
 export const fetchBySlug = React.cache((slug: string) => {

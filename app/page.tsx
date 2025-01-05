@@ -10,19 +10,22 @@ export default async function Home() {
   }
 
   return (
-    <main className="p-12 flex flex-row flex-wrap gap-8">
-      {posts.map((post) => (
-        <div key={post.id} className="bg-neutral-900 rounded-xl p-6 w-max">
-          <h2 className="font-semibold text-4xl mb-8">{post.title}</h2>
-          <p className="mb-12">{post.date}</p>
-          <Link
-            href={`/blog/${post.slug}`}
-            className="p-2 bg-amber-500 text-black rounded-lg"
-          >
-            Visit
+    <main className="p-12 flex flex-col gap-16">
+      <h1 className="text-6xl font-bold">Blog</h1>
+      <div className="flex flex-row flex-wrap gap-8">
+        {posts.map((post) => (
+          <Link href={`/blog/${post.slug}`}>
+            <div
+              key={post.id}
+              className="bg-neutral-900 hover:bg-neutral-800 duration-300 rounded-lg p-6 w-max"
+            >
+              {/* <Image /> */}
+              <p className="mb-2 text-neutral-400 text-sm">{post.date}</p>
+              <h2 className="font-semibold text-2xl mb-6">{post.title}</h2>
+            </div>
           </Link>
-        </div>
-      ))}
+        ))}
+      </div>
     </main>
   );
 }

@@ -19,3 +19,11 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+.prose {
+  @apply max-w-none prose-headings:text-white prose-p:text-neutral-300  prose-p:mb-4 prose-p:leading-relaxed prose-img:rounded-lg
+  prose-a:text-blue-500 prose-a:no-underline 
+  prose-li:text-neutral-300  prose-ul:list-disc prose-ul:list-inside prose-ul:mb-4 prose-ol:list-decimal prose-ol:list-inside prose-ol:mb-4
+  prose-pre:bg-neutral-900 prose-pre:text-white prose-pre:rounded-lg prose-pre:overflow-x-auto
+  prose-code:bg-neutral-800 prose-code:text-white prose-code:px-1 prose-code:rounded
+  prose-blockquote:text-white prose-hr:border-neutral-700;
+}
